@@ -10,6 +10,7 @@
 ** Requirements
    - [[http://chiselapp.com/user/dhkolf/repository/dkjson/home][dkjson]] module.  Please put it to =~/.config/awesome= directory so
      =spaceapi.lua= can find it.
+   - [[http://curl.haxx.se/][curl]]
 ** Usage
    Clone the repository using =git clone= command and place
    =spaceapi.lua= in =~/.config/awesome= directory.
