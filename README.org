@@ -1,4 +1,4 @@
-* Awesome Space API
+* Awesome Space
   A simple widget for [[http://awesome.naquadah.org/][Awesome]] TWM that shows the current state of a
   choosen hackerspace.
 
