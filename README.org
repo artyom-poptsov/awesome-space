@@ -1,0 +1,36 @@
+* Awesome Space API
+  A simple widget for [[http://awesome.naquadah.org/][Awesome]] TWM that uses shows the current state of
+  a choosen hackerspace.
+** Requirements
+   - [[http://chiselapp.com/user/dhkolf/repository/dkjson/home][dkjson]] module.  Please put it to =~/.config/awesome= directory so
+     =spaceapi.lua= can find it.
+** Usage
+   Clone the repository using =git clone= command and place
+   =spaceapi.lua= in =~/.config/awesome= directory.
+
+   Then add the following to your =rc.lua=:
+#+BEGIN_SRC lua
+require("spaceapi")
+-- ... skipped ...
+hackerspace_state = widget ({
+                      type = "textbox",
+                      name = "spaceapi"
+                   })
+vicious.register (hackerspace_state, spaceapi,
+                  function (widget, args)
+                     local indicator = {
+                        ["open"]      = "<span color='#7fff00'>⬤</span>",
+                        ["closed"]    = "<span color='#ffff00'>⬤</span>",
+                        ["undefined"] = "<span color='#bebebe'>⬤</span>"
+                     }
+                     return indicator[args["state"]]
+                  end,
+                  60,
+                  "CADR") -- Hackerspace name
+-- ... skipped ...
+   mywibox[s].widgets = {
+-- ... skipped ...
+      hackerspace_state,
+#+END_SRC
+
+   Don't forget to adjust the hackerspace name to your needs.
