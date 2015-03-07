@@ -56,8 +56,11 @@ local function parse_json (json_obj)
    end
 end
 
--- Set hackerspace to NAME.
-function set_hackerspace_x (name)
+
+--- Space API
+
+-- Get the Space API directory as a table.
+local function get_spaceapi_directory ()
    local json = get_json (spaceapi_directory)
    if not json then
       error ("Could not read JSON")
@@ -68,6 +71,13 @@ function set_hackerspace_x (name)
       error ("Could not parse the directory JSON")
    end
 
+   return directory
+end
+
+
+-- Set hackerspace to NAME.
+function set_hackerspace_x (name)
+   local directory = get_spaceapi_directory ()
    hackerspace = {
       name      = name,
       cache_url = directory[name]
