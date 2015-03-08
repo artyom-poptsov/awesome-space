@@ -28,6 +28,7 @@ hackerspace_state = widget ({
                       type = "textbox",
                       name = "spaceapi"
                    })
+awesome_space.widget.register (hackerspace_state)
 vicious.register (hackerspace_state, awesome_space.widget,
                   awesome_space.widget.default_formatter,
                   60,

@@ -20,7 +20,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 local setmetatable = setmetatable
 
 local vicious = require("vicious")
+local naughty = require("naughty")
 local spaceapi = require("awesome_space.spaceapi")
+local mouse =  mouse
+local naughty = { notify = naughty.notify }
 
 module ("awesome_space.widget")
 
@@ -28,7 +31,9 @@ module ("awesome_space.widget")
 local endpoint = false;
 
 -- Cached hackerspace data
-local hackerspace = false
+local hackerspace = nil
+
+local popup = nil
 
 
 -- Set hackerspace to NAME.
@@ -61,6 +66,35 @@ local indicator = {
 
 function default_formatter (widget, args)
    return indicator[args["state"]]
+end
+
+
+function on_mouse_enter ()
+   if hackerspace ~= nil then
+      local state = get_state (hackerspace)
+      local notify_text
+         = hackerspace.url .. '\n\n'
+         .. '<u>Status</u>\n' .. state .. '\n\n'
+         .. '<u>Location</u>\n' .. hackerspace.location.address .. '\n'
+
+      popup = naughty.notify ({
+                                 title  = hackerspace.space,
+                                 text   = notify_text,
+                                 width  = 200,
+                                 screen = mouse.screen
+                              })
+   end
+end
+
+function on_mouse_leave ()
+   if popup ~= nil then
+      naughty.destroy (popup)
+   end
+end
+
+function register (widget)
+   widget:add_signal ("mouse::enter", on_mouse_enter)
+   widget:add_signal ("mouse::leave", on_mouse_leave)
 end
 
 
