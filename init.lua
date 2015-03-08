@@ -17,8 +17,11 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --]==]
 
+
+require ("awesome_space.spaceapi")
 require ("awesome_space.widget")
 
+
 module ("awesome_space")
 
 --- init.lua ends here.
