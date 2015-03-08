@@ -50,12 +50,13 @@ local function get_state (hackerspace_data)
 end
 
 
+local indicator = {
+   ["open"]      = "<span color='#7fff00'>⬤</span>",
+   ["closed"]    = "<span color='#ffff00'>⬤</span>",
+   ["undefined"] = "<span color='#bebebe'>⬤</span>"
+}
+
 function default_formatter (widget, args)
-   local indicator = {
-      ["open"]      = "<span color='#7fff00'>⬤</span>",
-      ["closed"]    = "<span color='#ffff00'>⬤</span>",
-      ["undefined"] = "<span color='#bebebe'>⬤</span>"
-   }
    return indicator[args["state"]]
 end
 
