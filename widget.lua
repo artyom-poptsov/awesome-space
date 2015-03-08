@@ -24,6 +24,7 @@ local naughty = require("naughty")
 local spaceapi = require("awesome_space.spaceapi")
 local awful = require("awful")
 local mouse =  mouse
+local pairs = pairs
 local naughty = { notify = naughty.notify, destroy = naughty.destroy  }
 local util = awful.util
 local tooltip = awful.tooltip
@@ -87,14 +88,34 @@ local function wrap (str, limit, indent, indent1)
                               end)
 end
 
+local function make_list (elements)
+   local result = ''
+   for idx,val in pairs (elements) do
+      if val then
+         result = result .. '■ ' .. val .. '\n'
+      end
+   end
+   return result
+end
+
 
 function show_popup ()
    if hackerspace ~= nil then
       local state = get_state (hackerspace)
+      local location_pos
+         = hackerspace.location.lon .. ', ' .. hackerspace.location.lat
+
       local notify_text = hackerspace.url .. '\n\n'
-         .. '<u>Status</u>\n' .. indicator[state] .. ' ' .. state .. '\n\n'
+         .. '<u>Status</u>\n' .. indicator[state] .. ' ' .. state .. '\n'
+         .. '\n'
          .. '<u>Location</u>\n'
-         .. wrap (hackerspace.location.address)
+         .. make_list ({wrap (hackerspace.location.address), location_pos})
+         .. '\n'
+
+      local contacts = make_list (hackerspace.contact)
+      if contacts ~= '' then
+         notify_text = notify_text .. '<u>Contact</u>\n' .. contacts
+      end
 
       popup = naughty.notify ({
                                  title  = hackerspace.space,
