@@ -9,21 +9,26 @@
    many).
 ** Requirements
    - [[http://chiselapp.com/user/dhkolf/repository/dkjson/home][dkjson]] module.  Please put it to =~/.config/awesome= directory so
-     =spaceapi.lua= can find it.
+     Awesome Space can find it.
    - [[http://curl.haxx.se/][curl]]
 ** Usage
-   Clone the repository using =git clone= command and place
-   =spaceapi.lua= in =~/.config/awesome= directory.
+   Clone the repository using =git clone= command to
+   =~/.config/awesome= directory:
+
+#+BEGIN_EXAMPLE shell-script
+$ cd ~/.config/awesome/
+$ git clone https://github.com/artyom-poptsov/awesome_space.git
+#+END_EXAMPLE
 
    Then add the following to your =rc.lua=:
 #+BEGIN_SRC lua
-require("spaceapi")
+require("awesome_space")
 -- ... skipped ...
 hackerspace_state = widget ({
                       type = "textbox",
                       name = "spaceapi"
                    })
-vicious.register (hackerspace_state, spaceapi,
+vicious.register (hackerspace_state, awesome_space,
                   function (widget, args)
                      local indicator = {
                         ["open"]      = "<span color='#7fff00'>⬤</span>",
