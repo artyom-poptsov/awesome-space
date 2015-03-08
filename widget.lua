@@ -72,18 +72,33 @@ function default_formatter (widget, args)
 end
 
 
+-- Taken from <http://lua-users.org/wiki/StringRecipes>
+local function wrap (str, limit, indent, indent1)
+  indent = indent or ""
+  indent1 = indent1 or indent
+  limit = limit or 72
+  local here = 1 - #indent1
+  return indent1 .. str:gsub ("(%s+)()(%S+)()",
+                              function (sp, st, word, fi)
+                                 if (fi - here) > limit then
+                                    here = st - #indent
+                                    return "<br>" .. indent .. word
+                                 end
+                              end)
+end
+
+
 function show_popup ()
    if hackerspace ~= nil then
       local state = get_state (hackerspace)
-      local notify_text
-         = hackerspace.url .. '\n\n'
+      local notify_text = hackerspace.url .. '\n\n'
          .. '<u>Status</u>\n' .. indicator[state] .. ' ' .. state .. '\n\n'
-         .. '<u>Location</u>\n' .. hackerspace.location.address .. '\n'
+         .. '<u>Location</u>\n'
+         .. wrap (hackerspace.location.address)
 
       popup = naughty.notify ({
                                  title  = hackerspace.space,
                                  text   = notify_text,
-                                 width  = 200,
                                  timeout = 0,
                                  screen = mouse.screen
                               })
