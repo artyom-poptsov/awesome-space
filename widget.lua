@@ -22,8 +22,11 @@ local setmetatable = setmetatable
 local vicious = require("vicious")
 local naughty = require("naughty")
 local spaceapi = require("awesome_space.spaceapi")
+local awful = require("awful")
 local mouse =  mouse
-local naughty = { notify = naughty.notify }
+local naughty = { notify = naughty.notify, destroy = naughty.destroy  }
+local util = awful.util
+local tooltip = awful.tooltip
 
 module ("awesome_space.widget")
 
@@ -69,7 +72,7 @@ function default_formatter (widget, args)
 end
 
 
-function on_mouse_enter ()
+function show_popup ()
    if hackerspace ~= nil then
       local state = get_state (hackerspace)
       local notify_text
@@ -81,20 +84,39 @@ function on_mouse_enter ()
                                  title  = hackerspace.space,
                                  text   = notify_text,
                                  width  = 200,
+                                 timeout = 0,
                                  screen = mouse.screen
                               })
    end
 end
 
-function on_mouse_leave ()
+function hide_popup ()
    if popup ~= nil then
       naughty.destroy (popup)
    end
+   popup = nil
 end
 
 function register (widget)
-   widget:add_signal ("mouse::enter", on_mouse_enter)
-   widget:add_signal ("mouse::leave", on_mouse_leave)
+   local widget_t = tooltip ({
+                                objects = { widget },
+                                timer_function = function ()
+                                   if hackerspace ~= nil then
+                                      local name = hackerspace.space
+                                      local state = get_state (hackerspace)
+                                      return name .. ': ' .. state
+                                   end
+                                end
+                             })
+   widget:buttons (util.table.join (
+                     awful.button ({ }, 1,
+                                  function ()
+                                     if popup == nil then
+                                        show_popup ()
+                                     else
+                                        hide_popup ()
+                                     end
+                                  end)))
 end
 
 
