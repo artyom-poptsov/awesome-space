@@ -28,7 +28,7 @@ hackerspace_state = widget ({
                       type = "textbox",
                       name = "spaceapi"
                    })
-vicious.register (hackerspace_state, awesome_space,
+vicious.register (hackerspace_state, awesome_space.widget,
                   function (widget, args)
                      local indicator = {
                         ["open"]      = "<span color='#7fff00'>⬤</span>",

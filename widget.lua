@@ -23,7 +23,7 @@ local io = { popen = io.popen }
 local json    = require("dkjson")
 local vicious = require("vicious")
 
-module ("awesome_space")
+module ("awesome_space.widget")
 
 -- URL of the Space API hackerspace directory
 local spaceapi_directory = "http://spaceapi.net/directory.json"
