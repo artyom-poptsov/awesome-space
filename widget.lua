@@ -24,14 +24,17 @@ local spaceapi = require("awesome_space.spaceapi")
 
 module ("awesome_space.widget")
 
--- Hackerspace to be observed to
-local hackerspace = false;
+-- Space API endpoint to be observed to
+local endpoint = false;
+
+-- Cached hackerspace data
+local hackerspace = false
 
 
 -- Set hackerspace to NAME.
 function set_hackerspace_x (name)
    local directory = spaceapi.get_spaceapi_directory ()
-   hackerspace = {
+   endpoint = {
       name      = name,
       cache_url = directory[name]
    }
@@ -66,8 +69,8 @@ function worker (format, warg)
       set_hackerspace_x (warg)
    end
 
-   local data = spaceapi.get_hackerspace_data (hackerspace.cache_url)
-   return { name = hackerspace.name, state = get_state (data) }
+   hackerspace = spaceapi.get_hackerspace_data (endpoint.cache_url)
+   return { name = hackerspace.space, state = get_state (hackerspace) }
 end
 
 
