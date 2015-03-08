@@ -29,14 +29,7 @@ hackerspace_state = widget ({
                       name = "spaceapi"
                    })
 vicious.register (hackerspace_state, awesome_space.widget,
-                  function (widget, args)
-                     local indicator = {
-                        ["open"]      = "<span color='#7fff00'>⬤</span>",
-                        ["closed"]    = "<span color='#ffff00'>⬤</span>",
-                        ["undefined"] = "<span color='#bebebe'>⬤</span>"
-                     }
-                     return indicator[args["state"]]
-                  end,
+                  awesome_space.widget.default_formatter,
                   60,
                   "CADR") -- Hackerspace name
 -- ... skipped ...
