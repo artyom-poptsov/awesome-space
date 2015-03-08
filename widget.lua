@@ -74,7 +74,7 @@ function on_mouse_enter ()
       local state = get_state (hackerspace)
       local notify_text
          = hackerspace.url .. '\n\n'
-         .. '<u>Status</u>\n' .. state .. '\n\n'
+         .. '<u>Status</u>\n' .. indicator[state] .. ' ' .. state .. '\n\n'
          .. '<u>Location</u>\n' .. hackerspace.location.address .. '\n'
 
       popup = naughty.notify ({
