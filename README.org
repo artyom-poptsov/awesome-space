@@ -22,21 +22,24 @@ $ git clone https://github.com/artyom-poptsov/awesome_space.git
 
    Then add the following to your =rc.lua=:
 #+BEGIN_SRC lua
-require("awesome_space")
--- ... skipped ...
 hackerspace_state = widget ({
                       type = "textbox",
                       name = "spaceapi"
                    })
+
+local awesome_space = require("awesome_space")
 awesome_space.widget.register (hackerspace_state)
 vicious.register (hackerspace_state, awesome_space.widget,
                   awesome_space.widget.default_formatter,
-                  60,
+                  300,    -- Update timeout
                   "CADR") -- Hackerspace name
--- ... skipped ...
+#+END_SRC
+   Don't forget to adjust the hackerspace name to your needs.  Then
+   add the widget somewhere to your Awesome panel in =rc.lua=:
+
+#+BEGIN_SRC lua
    mywibox[s].widgets = {
 -- ... skipped ...
       hackerspace_state,
+-- ... skipped ...
 #+END_SRC
-
-   Don't forget to adjust the hackerspace name to your needs.
