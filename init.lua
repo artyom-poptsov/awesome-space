@@ -20,6 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 require ("awesome_space.spaceapi")
 require ("awesome_space.widget")
+require ("awesome_space.util")
 
 
 module ("awesome_space")

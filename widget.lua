@@ -22,7 +22,9 @@ local setmetatable = setmetatable
 local vicious = require("vicious")
 local naughty = require("naughty")
 local spaceapi = require("awesome_space.spaceapi")
+local as_util  = require("awesome_space.util")
 local awful = require("awful")
+local as_util = {wrap = as_util.wrap, assoc = as_util.assoc}
 local mouse =  mouse
 local pairs = pairs
 local naughty = { notify = naughty.notify, destroy = naughty.destroy  }
@@ -84,22 +86,6 @@ function default_formatter (widget, args)
    return indicator[args["state"]]
 end
 
-
--- Taken from <http://lua-users.org/wiki/StringRecipes>
-local function wrap (str, limit, indent, indent1)
-  indent = indent or ""
-  indent1 = indent1 or indent
-  limit = limit or 72
-  local here = 1 - #indent1
-  return indent1 .. str:gsub ("(%s+)()(%S+)()",
-                              function (sp, st, word, fi)
-                                 if (fi - here) > limit then
-                                    here = st - #indent
-                                    return "<br>" .. indent .. word
-                                 end
-                              end)
-end
-
 local function make_list (elements)
    local result = ''
    for idx,val in pairs (elements) do
@@ -121,7 +107,8 @@ function show_popup ()
          .. '<u>Status</u>\n' .. indicator[state] .. ' ' .. state .. '\n'
          .. '\n'
          .. '<u>Location</u>\n'
-         .. make_list ({wrap (hackerspace.location.address), location_pos})
+         .. make_list ({as_util.wrap (hackerspace.location.address),
+                        location_pos})
          .. '\n'
 
       local contacts = make_list (hackerspace.contact)
@@ -158,21 +145,11 @@ function register (widget)
                              })
 
    local make_dir_menu = function ()
-      local assoc = function (t, key)
-         local result = nil
-         for i = 1, #t do
-            if t[i][1] == key then
-               result = t[i]
-               break
-            end
-         end
-         return result
-      end
       local items = {}
 
       for i,k in pairs (directory) do
          local letter = string.sub (string.lower (i), 0, 1)
-         local letter_table = assoc (items, letter)
+         local letter_table = as_util.assoc (items, letter)
          if not letter_table then
             items[#items + 1] = {letter, {}}
             letter_table = items[#items]
