@@ -1,5 +1,5 @@
 --[==[
-spaceapi.lua -- Show a hackerspace status.
+widget.lua -- Show a hackerspace status.
 
 Copyright (C) 2015  Artyom V. Poptsov <poptsov.artyom@gmail.com>
 
@@ -36,6 +36,7 @@ local string = { sub = string.sub, lower = string.lower }
 
 module ("awesome_space.widget")
 
+-- Space API directory table
 local directory = nil
 
 -- Space API endpoint to be observed to
@@ -44,8 +45,10 @@ local endpoint = false;
 -- Cached hackerspace data
 local hackerspace = nil
 
+-- Popup menu
 local popup = nil
 
+-- Widget menu
 local widget_menu = nil;
 
 
@@ -82,10 +85,12 @@ local indicator = {
    ["undefined"] = "<span color='#bebebe'>⬤</span>"
 }
 
+-- Default widget formatter.
 function default_formatter (widget, args)
    return indicator[args["state"]]
 end
 
+-- Make an unordered list containing ELEMENTS with markers.
 local function make_list (elements)
    local result = ''
    for idx,val in pairs (elements) do
@@ -205,4 +210,4 @@ end
 
 setmetatable(_M, { __call = function(_, ...) return worker(...) end })
 
--- spaceapi.lua ends here
+-- widget.lua ends here.
