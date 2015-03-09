@@ -28,8 +28,12 @@ local pairs = pairs
 local naughty = { notify = naughty.notify, destroy = naughty.destroy  }
 local util = awful.util
 local tooltip = awful.tooltip
+local menu = awful.menu
+local prompt = awful.prompt
 
 module ("awesome_space.widget")
+
+local directory = nil
 
 -- Space API endpoint to be observed to
 local endpoint = false;
@@ -39,10 +43,12 @@ local hackerspace = nil
 
 local popup = nil
 
+local widget_menu = nil;
+
 
 -- Set hackerspace to NAME.
 function set_hackerspace_x (name)
-   local directory = spaceapi.get_spaceapi_directory ()
+   directory = spaceapi.get_spaceapi_directory ()
    endpoint = {
       name      = name,
       cache_url = directory[name]
@@ -59,6 +65,11 @@ local function get_state (hackerspace_data)
    else
       return "undefined"
    end
+end
+
+-- Update hackerspace data
+function update ()
+   hackerspace = spaceapi.get_hackerspace_data (endpoint.cache_url)
 end
 
 
@@ -144,6 +155,36 @@ function register (widget)
                                    end
                                 end
                              })
+
+   local make_dir_menu = function ()
+      local items = {}
+
+      for i,k in pairs (directory) do
+         items[#items + 1] = {
+            i,
+            function ()
+               set_hackerspace_x (i)
+               update ()
+            end
+         }
+      end
+
+      return items
+   end
+
+   local widget_m = nil
+
+   local show_menu = function ()
+      if not widget_m then
+         widget_m
+            = menu ({items = {
+                        { "Choose an hackerspace...", make_dir_menu () }
+            }})
+      end
+
+      widget_m:toggle()
+   end
+
    widget:buttons (util.table.join (
                      awful.button ({ }, 1,
                                   function ()
@@ -152,7 +193,8 @@ function register (widget)
                                      else
                                         hide_popup ()
                                      end
-                                  end)))
+                                  end),
+                     awful.button ({ }, 3, show_menu)))
 end
 
 
@@ -161,7 +203,7 @@ function worker (format, warg)
       set_hackerspace_x (warg)
    end
 
-   hackerspace = spaceapi.get_hackerspace_data (endpoint.cache_url)
+   update ()
    return { name = hackerspace.space, state = get_state (hackerspace) }
 end
 
