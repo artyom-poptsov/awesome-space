@@ -8,6 +8,7 @@
   *Beware:* this widget may contain awesome bugs (but hopefully not
    many).
 ** Requirements
+   - [[http://awesome.naquadah.org/wiki/Vicious][vicous]]
    - [[http://chiselapp.com/user/dhkolf/repository/dkjson/home][dkjson]] module.  Please put it to =~/.config/awesome= directory so
      Awesome Space can find it.
    - [[http://curl.haxx.se/][curl]]
