@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 module ("awesome_space.util")
 
 -- Taken from <http://lua-users.org/wiki/StringRecipes>
-local function wrap (str, limit, indent, indent1)
+function wrap (str, limit, indent, indent1)
   indent = indent or ""
   indent1 = indent1 or indent
   limit = limit or 72
