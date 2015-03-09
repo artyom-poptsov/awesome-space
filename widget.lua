@@ -30,6 +30,7 @@ local util = awful.util
 local tooltip = awful.tooltip
 local menu = awful.menu
 local prompt = awful.prompt
+local string = { sub = string.sub, lower = string.lower }
 
 module ("awesome_space.widget")
 
@@ -157,10 +158,27 @@ function register (widget)
                              })
 
    local make_dir_menu = function ()
+      local assoc = function (t, key)
+         local result = nil
+         for i = 1, #t do
+            if t[i][1] == key then
+               result = t[i]
+               break
+            end
+         end
+         return result
+      end
       local items = {}
 
       for i,k in pairs (directory) do
-         items[#items + 1] = {
+         local letter = string.sub (string.lower (i), 0, 1)
+         local letter_table = assoc (items, letter)
+         if not letter_table then
+            items[#items + 1] = {letter, {}}
+            letter_table = items[#items]
+         end
+
+         letter_table[2][#letter_table[2] + 1] = {
             i,
             function ()
                set_hackerspace_x (i)
