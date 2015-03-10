@@ -178,6 +178,7 @@ function register (widget)
       if not widget_m then
          widget_m
             = menu ({items = {
+                        { "Update",                   update },
                         { "Choose an hackerspace...", make_dir_menu () }
             }})
       end
