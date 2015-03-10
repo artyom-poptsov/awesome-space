@@ -61,40 +61,6 @@ function set_hackerspace_x (name)
    }
 end
 
--- Get hackerspace state from the given data HACKERSPACE_DATA.
-local function get_state (hackerspace)
-   local state_open = nil
-
-   if hackerspace.api == "0.13" then
-      state_open = hackerspace.state.open
-   elseif hackerspace.api == "0.12" then
-      state_open = hackerspace.open
-   end
-
-   if state_open == true then
-      return "open"
-   elseif state_open == false then
-      return "closed"
-   else
-      return "undefined"
-   end
-end
-
-local function get_location (hackerspace)
-   local location = nil
-   if hackerspace.api == "0.13" then
-      location = { address = hackerspace.location.address,
-                   lat     = hackerspace.location.lat,
-                   lon     = hackerspace.location.lon }
-   elseif hackerspace.api == "0.12" then
-      location = { address = hackerspace.address,
-                   lat     = hackerspace.lat,
-                   lon     = hackerspace.lon }
-   end
-
-   return location
-end
-
 -- Update hackerspace data
 function update ()
    hackerspace = spaceapi.get_hackerspace_data (endpoint.cache_url)
@@ -126,8 +92,8 @@ end
 
 function show_popup ()
    if hackerspace ~= nil then
-      local state = get_state (hackerspace)
-      local location = get_location (hackerspace)
+      local state = spaceapi.get_state (hackerspace)
+      local location = spaceapi.get_location (hackerspace)
       local notify_text = hackerspace.url .. '\n\n'
          .. '<u>Status</u>\n' .. indicator[state] .. ' ' .. state .. '\n'
          .. '\n'
@@ -167,7 +133,8 @@ function register (widget)
                                 timer_function = function ()
                                    if hackerspace ~= nil then
                                       local name = hackerspace.space
-                                      local state = get_state (hackerspace)
+                                      local state
+                                         = spaceapi.get_state (hackerspace)
                                       return name .. ': ' .. state
                                    end
                                 end
@@ -229,7 +196,7 @@ function worker (format, warg)
    end
 
    update ()
-   return { name = hackerspace.space, state = get_state (hackerspace) }
+   return { name = hackerspace.space, state = spaceapi.get_state (hackerspace) }
 end
 
 

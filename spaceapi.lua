@@ -84,4 +84,39 @@ function get_hackerspace_data (cache_url)
    return parse_json (json)
 end
 
+
+-- Get hackerspace state from the given data HACKERSPACE_DATA.
+function get_state (hackerspace)
+   local state_open = nil
+
+   if hackerspace.api == "0.13" then
+      state_open = hackerspace.state.open
+   elseif hackerspace.api == "0.12" then
+      state_open = hackerspace.open
+   end
+
+   if state_open == true then
+      return "open"
+   elseif state_open == false then
+      return "closed"
+   else
+      return "undefined"
+   end
+end
+
+function get_location (hackerspace)
+   local location = nil
+   if hackerspace.api == "0.13" then
+      location = { address = hackerspace.location.address,
+                   lat     = hackerspace.location.lat,
+                   lon     = hackerspace.location.lon }
+   elseif hackerspace.api == "0.12" then
+      location = { address = hackerspace.address,
+                   lat     = hackerspace.lat,
+                   lon     = hackerspace.lon }
+   end
+
+   return location
+end
+
 --- spaceapi.lua ends here.
