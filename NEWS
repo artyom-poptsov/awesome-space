@@ -9,6 +9,7 @@ Copyright (C) Artyom V. Poptsov <poptsov.artyom@gmail.com>
 
 * Unreleased
 ** Fix handling of Space API v0.12 JSON
+** Sort items in "Choose an hackerspace..." menu alphabetically
 ** Add "Update" menu item
 
 * Changes in version 0.1.0 (2015-03-09)

@@ -32,6 +32,7 @@ local util = awful.util
 local tooltip = awful.tooltip
 local menu = awful.menu
 local prompt = awful.prompt
+local table = table
 local string = { sub = string.sub, lower = string.lower }
 
 module ("awesome_space.widget")
@@ -159,6 +160,11 @@ function register (widget)
             end
          }
       end
+
+      table.sort (items,
+                  function (a, b)
+                     return a[1] < b[1]
+                  end)
 
       return items
    end
