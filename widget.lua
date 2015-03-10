@@ -116,7 +116,7 @@ end
 local function make_list (elements)
    local result = ''
    for idx,val in pairs (elements) do
-      if val then
+      if val and val ~= "" then
          result = result .. '■ ' .. val .. '\n'
       end
    end
