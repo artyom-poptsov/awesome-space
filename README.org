@@ -9,11 +9,20 @@
    many).
 
    Here are some screenshots:
+
    #+CAPTION: Tooltip
    [[./doc/images/tooltip.png]]
+   
+   If you place the mouse pointer over the widget icon then a tooltip
+   with the hackerspace status will be shown.
 
    #+CAPTION: Info
    [[./doc/images/info.png]]
+
+   Click on the widget icon shows information about the chosen
+   hackerspace in the notification area.  The next click on the icon
+   or the notification itself hides the information.
+
 ** Requirements
    - [[http://awesome.naquadah.org/wiki/Vicious][vicious]]
    - [[http://chiselapp.com/user/dhkolf/repository/dkjson/home][dkjson]] module.  Please put it to =~/.config/awesome= directory so
