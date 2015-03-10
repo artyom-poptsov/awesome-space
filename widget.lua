@@ -62,8 +62,15 @@ function set_hackerspace_x (name)
 end
 
 -- Get hackerspace state from the given data HACKERSPACE_DATA.
-local function get_state (hackerspace_data)
-   local state_open = hackerspace_data.state.open
+local function get_state (hackerspace)
+   local state_open = nil
+
+   if hackerspace.api == "0.13" then
+      state_open = hackerspace.state.open
+   elseif hackerspace.api == "0.12" then
+      state_open = hackerspace.open
+   end
+
    if state_open == true then
       return "open"
    elseif state_open == false then
@@ -71,6 +78,21 @@ local function get_state (hackerspace_data)
    else
       return "undefined"
    end
+end
+
+local function get_location (hackerspace)
+   local location = nil
+   if hackerspace.api == "0.13" then
+      location = { address = hackerspace.location.address,
+                   lat     = hackerspace.location.lat,
+                   lon     = hackerspace.location.lon }
+   elseif hackerspace.api == "0.12" then
+      location = { address = hackerspace.address,
+                   lat     = hackerspace.lat,
+                   lon     = hackerspace.lon }
+   end
+
+   return location
 end
 
 -- Update hackerspace data
@@ -105,16 +127,18 @@ end
 function show_popup ()
    if hackerspace ~= nil then
       local state = get_state (hackerspace)
-      local location_pos
-         = hackerspace.location.lon .. ', ' .. hackerspace.location.lat
-
+      local location = get_location (hackerspace)
       local notify_text = hackerspace.url .. '\n\n'
          .. '<u>Status</u>\n' .. indicator[state] .. ' ' .. state .. '\n'
          .. '\n'
-         .. '<u>Location</u>\n'
-         .. make_list ({as_util.wrap (hackerspace.location.address),
-                        location_pos})
-         .. '\n'
+
+      if location then
+         local address = location.address and as_util.wrap (location.address)
+            or nil
+         notify_text = notify_text .. '<u>Location</u>\n'
+            .. make_list ({address, location.lon .. ', ' .. location.lat})
+            .. '\n'
+      end
 
       local contacts = make_list (hackerspace.contact)
       if contacts ~= '' then
