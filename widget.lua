@@ -190,15 +190,15 @@ function register (widget)
    end
 
    widget:buttons (util.table.join (
-                     awful.button ({ }, 1,
-                                  function ()
-                                     if popup == nil then
-                                        show_popup ()
-                                     else
-                                        hide_popup ()
-                                     end
-                                  end),
-                     awful.button ({ }, 3, show_menu)))
+                      awful.button ({ }, 1,
+                                    function ()
+                                       if popup == nil then
+                                          show_popup ()
+                                       else
+                                          hide_popup ()
+                                       end
+                                    end),
+                      awful.button ({ }, 3, show_menu)))
 end
 
 
