@@ -142,6 +142,11 @@ function register (widget)
                              })
 
    local make_dir_menu = function ()
+      -- Sort a table T alfabetically
+      local alfa_sort = function (t)
+         table.sort (t, function (a, b) return a[1] < b[1] end)
+      end
+
       local items = {}
 
       for i,k in pairs (directory) do
@@ -161,10 +166,11 @@ function register (widget)
          }
       end
 
-      table.sort (items,
-                  function (a, b)
-                     return a[1] < b[1]
-                  end)
+      alfa_sort (items)
+
+      for i,k in pairs (items) do
+         alfa_sort (k[2])
+      end
 
       return items
    end
