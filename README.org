@@ -62,6 +62,11 @@ vicious.register (hackerspace_state, awesome_space.widget,
 -- ... skipped ...
 #+END_SRC
 ** Usage
+   By default the hackerspace state is shown by the color of an icon:
+   - green -- open
+   - yellow -- closed
+   - gray -- undefined (state is not yet known for some reason)
+
    If you place the mouse pointer over the widget icon then a tooltip
    with the hackerspace status will be shown:
 
