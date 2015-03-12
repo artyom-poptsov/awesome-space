@@ -1,4 +1,7 @@
 * Awesome Space
+
+  [[./doc/images/info.png]]
+
   A simple widget for [[http://awesome.naquadah.org/][Awesome]] TWM that shows the current state of a
   choosen hackerspace.
 
@@ -7,28 +10,12 @@
 
   *Beware:* this widget may contain awesome bugs (but hopefully not
    many).
-
-   Here are some screenshots:
-
-   #+CAPTION: Tooltip
-   [[./doc/images/tooltip.png]]
-   
-   If you place the mouse pointer over the widget icon then a tooltip
-   with the hackerspace status will be shown.
-
-   #+CAPTION: Info
-   [[./doc/images/info.png]]
-
-   Click on the widget icon shows information about the chosen
-   hackerspace in the notification area.  The next click on the icon
-   or the notification itself hides the information.
-
 ** Requirements
    - [[http://awesome.naquadah.org/wiki/Vicious][vicious]]
    - [[http://chiselapp.com/user/dhkolf/repository/dkjson/home][dkjson]] module.  Please put it to =~/.config/awesome= directory so
      Awesome Space can find it.
    - [[http://curl.haxx.se/][curl]]
-** Usage
+** Installation
    Clone the repository using =git clone= command to
    =~/.config/awesome= directory:
 
@@ -60,3 +47,26 @@ vicious.register (hackerspace_state, awesome_space.widget,
       hackerspace_state,
 -- ... skipped ...
 #+END_SRC
+** Usage
+   If you place the mouse pointer over the widget icon then a tooltip
+   with the hackerspace status will be shown:
+
+   #+CAPTION: Tooltip
+   [[./doc/images/tooltip.png]]
+
+   Left click on the widget icon shows information about the chosen
+   hackerspace in the notification area.  The next click on the icon
+   or the notification itself hides the information:
+
+   #+CAPTION: Info
+   [[./doc/images/info.png]]
+
+   Right click opens up the widget menu.  Click on *Update* menu item
+   fetches the current status of the selected hackerspace and updates
+   the widget; *Choose an hackerspace...* shows a submenu that allows
+   you to select an hackerspace different from that was specified in
+   =rc.lua=, and refreshes the widget.  Note that the selected
+   hackerspace will be reset on the next Awesome (re)start:
+
+   #+CAPTION: Menu
+   [[./doc/images/menu.png]]
