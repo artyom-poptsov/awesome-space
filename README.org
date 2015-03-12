@@ -12,10 +12,24 @@
    many).
 ** Requirements
    - [[http://awesome.naquadah.org/wiki/Vicious][vicious]]
-   - [[http://chiselapp.com/user/dhkolf/repository/dkjson/home][dkjson]] module.  Please put it to =~/.config/awesome= directory so
-     Awesome Space can find it.
+   - [[http://chiselapp.com/user/dhkolf/repository/dkjson/home][dkjson]]
    - [[http://curl.haxx.se/][curl]]
 ** Installation
+   First of all, you have to install the needed tools and libraries.
+   =curl= can be installed with your favorite package manager.  Lua
+   modules installation process is described below.
+*** vicious
+    Please see [[http://awesome.naquadah.org/wiki/Vicious#Getting_Vicious]["Getting Vicious"]] chapter in the official library
+    documentation.
+*** dkjson
+    You should put it somewhere where Awesome Space Widget can find
+    it.  =~/.config/awesome= seems to be a good place to store
+    =dkjson= in.  You can download dkjson 2.5 as the following:
+#+BEGIN_EXAMPLE shell-script
+$ cd ~/.config/awesome/
+$ wget "http://dkolf.de/src/dkjson-lua.fsl/raw/dkjson.lua?name=16cbc26080996d9da827df42cb0844a25518eeb3"
+#+END_EXAMPLE
+*** awesome_space
    Clone the repository using =git clone= command to
    =~/.config/awesome= directory:
 
