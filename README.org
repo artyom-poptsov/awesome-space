@@ -11,6 +11,7 @@
   *Beware:* this widget may contain awesome bugs (but hopefully not
    many).
 ** Requirements
+   - [[http://awesome.naquadah.org/][Awesome]] 3.4
    - [[http://awesome.naquadah.org/wiki/Vicious][vicious]]
    - [[http://chiselapp.com/user/dhkolf/repository/dkjson/home][dkjson]]
    - [[http://curl.haxx.se/][curl]]
