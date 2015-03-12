@@ -62,8 +62,8 @@ function set_hackerspace_x (name)
    }
 end
 
--- Update hackerspace data
-function update ()
+-- Refresh hackerspace data
+function refresh ()
    hackerspace = spaceapi.get_hackerspace_data (endpoint.cache_url)
 end
 
@@ -161,7 +161,7 @@ function register (widget)
             i,
             function ()
                set_hackerspace_x (i)
-               update ()
+               refresh ()
             end
          }
       end
@@ -181,7 +181,7 @@ function register (widget)
       if not widget_m then
          widget_m
             = menu ({items = {
-                        { "Update",                   update },
+                        { "Refresh",                  refresh },
                         { "Choose an hackerspace...", make_dir_menu () }
             }})
       end
@@ -207,7 +207,7 @@ function worker (format, warg)
       set_hackerspace_x (warg)
    end
 
-   update ()
+   refresh ()
    return { name = hackerspace.space, state = spaceapi.get_state (hackerspace) }
 end
 

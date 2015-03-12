@@ -75,7 +75,7 @@ vicious.register (hackerspace_state, awesome_space.widget,
    #+CAPTION: Info
    [[./doc/images/info.png]]
 
-   Right click opens up the widget menu.  Click on *Update* menu item
+   Right click opens up the widget menu.  Click on *Refresh* menu item
    fetches the current status of the selected hackerspace and updates
    the widget; *Choose an hackerspace...* shows a submenu that allows
    you to select an hackerspace different from that was specified in
