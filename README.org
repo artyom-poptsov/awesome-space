@@ -3,7 +3,7 @@
   [[./doc/images/info.png]]
 
   A simple widget for [[http://awesome.naquadah.org/][Awesome]] TWM that shows the current state of a
-  choosen hackerspace.
+  choosen [[http://hackerspaces.org/][hackerspace]].
 
   The widget uses [[http://spaceapi.net/][Space API]] to get the needed information about the
   hackerspace.
